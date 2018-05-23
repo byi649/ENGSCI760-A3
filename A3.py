@@ -22,13 +22,12 @@ for i in range(119):
     s[i], s[j] = s[j], s[i]
 
 # Iterate next-descent
-totalweight = sum(w)
 zx = sum([w[s[i]]*x[i] for i in range(120)])
 zy = sum([w[s[i]]*y[i] for i in range(120)])
 z = 5 * abs(zy) + abs(zx)
 
 converged = False
-last_swap = (119, 119) # TODO: edge case where we converge on first iteration
+last_swap = (119, 119) # TODO: edge case where we converge with no swaps
 while(not converged):
     for a in range(120):
         for b in range(a + 1, 120):
@@ -47,6 +46,7 @@ while(not converged):
                         s[a], s[b] = s[b], s[a]
                         last_swap = (a, b)
 
+totalweight = sum(w)
 print("dY =", zy/totalweight)
 print("dX =", zx/totalweight)
 print("z =", z/totalweight)
