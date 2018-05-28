@@ -1,3 +1,7 @@
+# Benjamin Yi
+# byi649
+# 925302651
+
 import matplotlib.pyplot as plt
 import math
 
