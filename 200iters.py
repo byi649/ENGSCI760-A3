@@ -1,3 +1,7 @@
+# Benjamin Yi
+# byi649
+# 925302651
+
 import random
 import matplotlib.pyplot as plt
 import math
@@ -32,10 +36,12 @@ for k in range(200):
     z = 5 * abs(zy) + abs(zx)
 
     converged = False
-    last_swap = (119, 119) # TODO: edge case where we converge with no swaps on first iteration
+    last_swap = (0, 0)
+
     while(not converged):
         for a in range(120):
             for b in range(a + 1, 120):
+                # Stop if the neighbourhood surrounding the last swap has been searched
                 if (a, b) == last_swap:
                     converged = True
                 else:
@@ -45,19 +51,23 @@ for k in range(200):
                         z_new = 5 * abs(zy_new) + abs(zx_new)
 
                         if z_new < z:
-                            z = z_new
-                            zy = zy_new
-                            zx = zx_new
+                            # Update and swap
+                            z, zy, zx = z_new, zy_new, zx_new
                             s[a], s[b] = s[b], s[a]
                             last_swap = (a, b)
 
+                # In the extremely rare case the shuffle gave us a local minima
+                if last_swap == (0, 0) and (a, b) == (119, 120):
+                    converged = True
+
+            if converged:
+                break
+
     totalweight = sum(w)
     z = z/totalweight
-    print("z =", z)
 
     if z < bestZ:
-        bestZ = z
-        bestS = s
+        bestZ, bestS = z, s
 
 print(bestZ)
 

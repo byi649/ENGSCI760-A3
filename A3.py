@@ -1,3 +1,7 @@
+# Benjamin Yi
+# byi649
+# 925302651
+
 import random
 import matplotlib.pyplot as plt
 import math
@@ -37,10 +41,12 @@ for k in range(2):
     bestzArray.append(z)
 
     converged = False
-    last_swap = (119, 119) # TODO: edge case where we converge with no swaps on first iteration
+    last_swap = (0, 0)
+
     while(not converged):
         for a in range(120):
             for b in range(a + 1, 120):
+                # Stop if the neighbourhood surrounding the last swap has been searched
                 if (a, b) == last_swap:
                     converged = True
                 else:
@@ -49,16 +55,22 @@ for k in range(2):
                         zx_new = zx - w[s[a]]*x[a] + w[s[b]]*x[a] - w[s[b]]*x[b] + w[s[a]]*x[b]
                         z_new = 5 * abs(zy_new) + abs(zx_new)
 
-                        zArray.append(z_new)
+                        zArray.append(z_new) # For plot
 
                         if z_new < z:
-                            z = z_new
-                            zy = zy_new
-                            zx = zx_new
+                            # Update and swap
+                            z, zy, zx = z_new, zy_new, zx_new
                             s[a], s[b] = s[b], s[a]
                             last_swap = (a, b)
 
                         bestzArray.append(z)
+
+                # In the extremely rare case the shuffle gave us a local minima
+                if last_swap == (0, 0) and (a, b) == (119, 120):
+                    converged = True
+
+            if converged:
+                break
 
     bestzArray.append(np.nan) # To create a vertical break between descents
     totalweight = sum(w)
@@ -66,8 +78,8 @@ for k in range(2):
     print("dX =", zx/totalweight)
     print("z =", z/totalweight)
 
-plt.scatter(x=range(len(zArray)), y=[math.log(x) for x in zArray], marker='x', alpha=0.5, s=0.2)
-plt.plot([math.log(x) for x in bestzArray], 'r')
+plt.scatter(x=range(len(zArray)), y=[math.log(x/totalweight) for x in zArray], marker='x', alpha=0.5, s=0.2)
+plt.plot([math.log(x/totalweight) for x in bestzArray], 'r')
 plt.xlabel("Function evaluation count")
 plt.ylabel("Solution quality (log)")
 plt.title("Next descent local search")
