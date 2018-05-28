@@ -16,11 +16,9 @@ with open("Positions.txt", 'r') as f:
 x = [float(tup.split()[1]) for tup in pos]
 y = [float(tup.split()[2]) for tup in pos]
 
-# Do two next-descent on problem A
-zArray = []
-bestzArray = []
+bestZ = float("inf")
 
-for k in range(2):
+for k in range(200):
 
     # Generate random starting solutions
     s = list(range(1, n+1)) + [0]*(120-n)
@@ -32,9 +30,6 @@ for k in range(2):
     zx = sum([w[s[i]]*x[i] for i in range(120)])
     zy = sum([w[s[i]]*y[i] for i in range(120)])
     z = 5 * abs(zy) + abs(zx)
-
-    zArray.append(z)
-    bestzArray.append(z)
 
     converged = False
     last_swap = (119, 119) # TODO: edge case where we converge with no swaps on first iteration
@@ -49,8 +44,6 @@ for k in range(2):
                         zx_new = zx - w[s[a]]*x[a] + w[s[b]]*x[a] - w[s[b]]*x[b] + w[s[a]]*x[b]
                         z_new = 5 * abs(zy_new) + abs(zx_new)
 
-                        zArray.append(z_new)
-
                         if z_new < z:
                             z = z_new
                             zy = zy_new
@@ -58,22 +51,16 @@ for k in range(2):
                             s[a], s[b] = s[b], s[a]
                             last_swap = (a, b)
 
-                        bestzArray.append(z)
-
-    bestzArray.append(np.nan) # To create a vertical break between descents
     totalweight = sum(w)
-    print("dY =", zy/totalweight)
-    print("dX =", zx/totalweight)
-    print("z =", z/totalweight)
+    z = z/totalweight
+    print("z =", z)
 
-plt.scatter(x=range(len(zArray)), y=[math.log(x) for x in zArray], marker='x', alpha=0.5, s=0.2)
-plt.plot([math.log(x) for x in bestzArray], 'r')
-plt.xlabel("Function evaluation count")
-plt.ylabel("Solution quality (log)")
-plt.title("Next descent local search")
-plt.show()
+    if z < bestZ:
+        bestZ = z
+        bestS = s
+
+print(bestZ)
 
 with open("Results.txt", 'w') as f:
-    f.write(str(z/totalweight)+"\n")
-    f.write("\n".join([str(x) for x in s]))
-
+    f.write(str(bestZ)+"\n")
+    f.write("\n".join([str(x) for x in bestS]))
