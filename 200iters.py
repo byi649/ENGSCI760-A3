@@ -39,11 +39,12 @@ for k in range(200):
     last_swap = (0, 0)
 
     while(not converged):
-        for a in range(120):
+        for a in range(119):
             for b in range(a + 1, 120):
                 # Stop if the neighbourhood surrounding the last swap has been searched
                 if (a, b) == last_swap:
                     converged = True
+                    break
                 else:
                     if b != a + 60 and w[s[a]] != w[s[b]]:
                         zy_new = zy - w[s[a]]*y[a] + w[s[b]]*y[a] - w[s[b]]*y[b] + w[s[a]]*y[b]

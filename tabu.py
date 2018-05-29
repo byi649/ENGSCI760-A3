@@ -43,7 +43,7 @@ worsen_count = 0
 while(not converged):
     neighbourhood = []
     iter_count += 1
-    for a in range(120):
+    for a in range(119):
         # Skip tabu swaps
         if (not (iter_count - history[s[a]] < h)):
             for b in range(a + 1, 120):
@@ -89,9 +89,10 @@ totalweight = sum(w)
 z = min(bestzArray)/totalweight
 print("z =", z)
 
-plt.scatter(x=range(len(zArray)), y=[math.log(x/totalweight) for x in zArray], alpha=0.5, s=0.2)
-plt.plot([math.log(x/totalweight) for x in bestzArray], 'r')
+plt.scatter(x=range(len(zArray)), y=[x/totalweight for x in zArray], alpha=0.5, s=0.2)
+plt.plot([x/totalweight for x in bestzArray], 'r')
 plt.xlabel("Function evaluation count")
-plt.ylabel("Solution quality (log)")
+plt.ylabel("Solution quality (log scale)")
+plt.yscale('log')
 plt.title("Tabu search")
 plt.show()

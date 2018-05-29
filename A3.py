@@ -44,11 +44,12 @@ for k in range(2):
     last_swap = (0, 0)
 
     while(not converged):
-        for a in range(120):
+        for a in range(119):
             for b in range(a + 1, 120):
                 # Stop if the neighbourhood surrounding the last swap has been searched
                 if (a, b) == last_swap:
                     converged = True
+                    break
                 else:
                     if b != a + 60 and w[s[a]] != w[s[b]]:
                         zy_new = zy - w[s[a]]*y[a] + w[s[b]]*y[a] - w[s[b]]*y[b] + w[s[a]]*y[b]
@@ -78,10 +79,11 @@ for k in range(2):
     print("dX =", zx/totalweight)
     print("z =", z/totalweight)
 
-plt.scatter(x=range(len(zArray)), y=[math.log(x/totalweight) for x in zArray], marker='x', alpha=0.5, s=0.2)
-plt.plot([math.log(x/totalweight) for x in bestzArray], 'r')
+plt.scatter(x=range(len(zArray)), y=[x/totalweight for x in zArray], marker='x', alpha=0.5, s=1)
+plt.plot([x/totalweight for x in bestzArray], 'r')
 plt.xlabel("Function evaluation count")
-plt.ylabel("Solution quality (log)")
+plt.ylabel("Solution quality (log scale)")
+plt.yscale('log')
 plt.title("Next descent local search")
 plt.show()
 
