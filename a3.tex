@@ -31,7 +31,18 @@
 \author{Benjamin Yi}
 \rhead{Benjamin Yi - byi649 - 925302651}
 \lhead{ENGSCI760 A3}
-	
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\linewidth]{atheists}
+\end{figure}
+
+I swear upon the deity of self-referential humour, that all output shown below was produced by running the code listed at the end of this document, without undue assistance from others.
+\begin{flushright}
+	- Benjamin Yi
+\end{flushright}
+\newpage
+
 \section*{Question 1}
 \begin{equation*}
 f(s) = 5*\bigg| \frac{\sum^n_{i=1} w(s_i)y_i}{\sum^n_{i=1}w_i} \bigg| + \bigg| \frac{\sum^n_{i=1} w(s_i)x_i}{\sum^n_{i=1}w_i} \bigg|
@@ -83,13 +94,17 @@ Create an array of size n, one element for each container. Initialise the array 
 \section*{Question 8}
 Instead of recording movement of containers, we could record container positions swapped. This would mean recording a, b instead of s[a], s[b].
 
+
 \newpage
+\pagenumbering{gobble}
 \section*{Two next-descents code}
 \lstinputlisting{A3.py}
 \newpage
+\thispagestyle{plain}
+\section*{Two next-descents plot}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.8\linewidth, angle=90, origin=c]{2_descent}
+	\includegraphics[width=1.4\linewidth, angle=90, origin=c]{2_descent}
 \end{figure}
 
 
@@ -98,11 +113,45 @@ Instead of recording movement of containers, we could record container positions
 \lstinputlisting{200iters.py}
 
 \newpage
-\section*{Tabu search code}
-\lstinputlisting{tabu.py}
+\thispagestyle{plain}
+\section*{Problem A}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1.8\linewidth, angle=90, origin=c]{tabu_search}
+	\includegraphics[width=1.6\linewidth, angle=90, origin=c]{ProbA.pdf}
+\end{figure}
+
+\newpage
+\thispagestyle{plain}
+\section*{Problem B}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.6\linewidth, angle=90, origin=c]{ProbB.pdf}
+\end{figure}
+
+\newpage
+\thispagestyle{plain}
+\section*{Problem C}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.6\linewidth, angle=90, origin=c]{ProbC.pdf}
+\end{figure}
+
+\newpage
+\section*{Tabu search code}
+\lstinputlisting{tabu.py}
+\newpage
+\thispagestyle{plain}
+\section*{Tabu search plot}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.4\linewidth, angle=90, origin=c]{tabu_search}
+\end{figure}
+\newpage
+\thispagestyle{plain}
+\section*{Tabu search zoomed in plot}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.4\linewidth, angle=90, origin=c]{tabu_search_zoom}
 \end{figure}
 \end{document}
 
